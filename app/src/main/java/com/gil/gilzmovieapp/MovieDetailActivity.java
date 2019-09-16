@@ -1,12 +1,14 @@
 package com.gil.gilzmovieapp;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 public class MovieDetailActivity extends AppCompatActivity {
 
@@ -17,7 +19,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     public static final String EXTRA_PHOTO = "com.gil.gilzmovieapp.EXTRA_PHOTO";
     public static final String EXTRA_GENRE = "com.gil.gilzmovieapp.EXTRA_GENRE";
 
-    private TextView tv_detail , text_view_realse_year , tv_rating;
+    private TextView tv_detail, text_view_realse_year, tv_rating, tv_genre;
     private ImageView image_view_detail;
 
     @Override
@@ -29,18 +31,33 @@ public class MovieDetailActivity extends AppCompatActivity {
         tv_detail = findViewById(R.id.tv_detail);
         tv_rating = findViewById(R.id.tv_rating);
         text_view_realse_year = findViewById(R.id.tv_release_year);
+        tv_genre = findViewById(R.id.tv_genre);
 
         Intent intent = getIntent();
         String title = intent.getStringExtra(EXTRA_TITLE);
         String photo = intent.getStringExtra(EXTRA_PHOTO);
-        int year = (int) intent.getIntExtra(EXTRA_RELEASE_YEAR , 1);
-        double rating = intent.getDoubleExtra(EXTRA_RATING,1);
+        int year = (int) intent.getIntExtra(EXTRA_RELEASE_YEAR, 1);
+        double rating = intent.getDoubleExtra(EXTRA_RATING, 1);
+        ArrayList<String> genreList = intent.getStringArrayListExtra(EXTRA_GENRE);
+
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < genreList.size(); i++) {
+            try {
+                builder.append(genreList.get(i));
+                builder.append(", ");
+
+            } catch (NumberFormatException ex) {
+                ex.printStackTrace();
+            }
+            tv_genre.setText("Genre : " + builder);
+        }
 
         Picasso.with(this).load(photo).into(image_view_detail);
         tv_detail.setText(title);
-        text_view_realse_year.setText("Release Year : "+year);
-        tv_rating.setText("Movie Rating : "+rating);
+        text_view_realse_year.setText("Release Year : " + year);
+        tv_rating.setText("Movie Rating : " + rating);
 
 
     }
+
 }

@@ -1,8 +1,8 @@
 package com.gil.gilzmovieapp;
 
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import gr.net.maroulis.library.EasySplashScreen;
@@ -18,10 +18,11 @@ public class SplashScreen extends AppCompatActivity {
                 .withTargetActivity(MainActivity.class)
                 .withSplashTimeOut(3000)
                 .withBackgroundColor(Color.parseColor("#06026B"))
-                .withLogo(R.mipmap.ic_launcher)
-                .withHeaderText("Welcome !!!");
+                .withBackgroundResource(R.drawable.purplebackground)
+                .withFooterText("Welcome !!!");
 
-        config.getHeaderTextView().setTextColor(Color.WHITE);
+        config.getFooterTextView().setTextColor(Color.WHITE);
+        config.getFooterTextView().setTextSize(30);
 
         View view = config.create();
 
