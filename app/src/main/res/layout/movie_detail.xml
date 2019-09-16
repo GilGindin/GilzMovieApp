@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    android:padding="16dp"
+    android:padding="@dimen/layoutPadding"
     app:cardCornerRadius="5dp">
 
     <RelativeLayout
@@ -13,22 +13,24 @@
         android:elevation="10dp"
         android:padding="10dp">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/image_view"
             android:layout_width="96dp"
             android:layout_height="96dp"
-            android:src="@drawable/ic_launcher_background" />
+            android:src="@drawable/ic_launcher_background"
+            app:civ_border_color="#FF000000"
+            app:civ_border_width="2dp"/>
 
         <TextView
             android:id="@+id/text_view_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
+            android:layout_marginLeft="@dimen/textMarginLeft"
             android:layout_toRightOf="@+id/image_view"
-            android:paddingLeft="8dp"
-            android:text="name"
-            android:textColor="#000"
-            android:textSize="20sp"
+            android:paddingLeft="@dimen/textPaddingLeft"
+            android:text="title"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/normalTextSize"
             android:textStyle="bold" />
 
         <TextView
@@ -36,13 +38,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/text_view_title"
-            android:layout_marginLeft="4dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginLeft="@dimen/textMarginLeft"
+            android:layout_marginTop="@dimen/textMarginTop"
             android:layout_toRightOf="@+id/image_view"
-            android:paddingLeft="8dp"
-            android:text="abilities"
+            android:paddingLeft="@dimen/textPaddingLeft"
+            android:text="year"
             android:textColor="@android:color/darker_gray"
-            android:textSize="12sp" />
+            android:textSize="@dimen/smallTextSize" />
 
 
     </RelativeLayout>
