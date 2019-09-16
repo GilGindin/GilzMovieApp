@@ -45,11 +45,10 @@ public class MovieDetailActivity extends AppCompatActivity {
             try {
                 builder.append(genreList.get(i));
                 builder.append(", ");
-
             } catch (NumberFormatException ex) {
                 ex.printStackTrace();
             }
-            tv_genre.setText("Genre : " + builder);
+            tv_genre.setText("Genres : " + method(String.valueOf(builder)));
         }
 
         Picasso.with(this).load(photo).into(image_view_detail);
@@ -57,7 +56,13 @@ public class MovieDetailActivity extends AppCompatActivity {
         text_view_realse_year.setText("Release Year : " + year);
         tv_rating.setText("Movie Rating : " + rating);
 
+    }
 
+    public String method(String str) {
+        if (str != null && str.length() > 0 && str.charAt(str.length() - 2) == ',') {
+            str = str.substring(0, str.length() - 2);
+        }
+        return str;
     }
 
 }
