@@ -16,6 +16,7 @@ import com.gil.gilzmovieapp.DataBase.MyMovie;
 import com.gil.gilzmovieapp.Netowrk.EndPointClass;
 import com.gil.gilzmovieapp.Netowrk.RetrofitInstance;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private MoviesViewModel mMoviesViewModel;
     private RecyclerView mRecyclerView;
-    private boolean isEmpty = false;
     private MyMovie myMovie;
 
     @Override
@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setHasFixedSize(true);
+      //  mRecyclerView.setItemViewCacheSize(20);
 
 
         mMoviesViewModel = ViewModelProviders.of(this).get(MoviesViewModel.class);
@@ -47,7 +48,9 @@ public class MainActivity extends AppCompatActivity {
             public void onChanged(@Nullable List<MyMovie> myMovies) {
 
                 MyCustomAdapter myCustomAdapter = new MyCustomAdapter(MainActivity.this, myMovies);
+             //   myCustomAdapter.setHasStableIds(true);
                 mRecyclerView.setAdapter(myCustomAdapter);
+                myCustomAdapter.notifyDataSetChanged();
 
                 myCustomAdapter.setOnItemClickListener(new MyCustomAdapter.OnItemClickListener() {
                     @Override
@@ -58,14 +61,12 @@ public class MainActivity extends AppCompatActivity {
                         intent.putExtra(MovieDetailActivity.EXTRA_RATING, myMovie.getRating());
                         intent.putExtra(MovieDetailActivity.EXTRA_RELEASE_YEAR, myMovie.getReleaseYear());
                         intent.putExtra(MovieDetailActivity.EXTRA_PHOTO, myMovie.getImage());
-                        // intent.putExtra(MovieDetailActivity.EXTRA_GENRE , myMovie.getGenre());
+                        intent.putExtra(MovieDetailActivity.EXTRA_GENRE, (Serializable) myMovie.getGenre());
                         startActivity(intent);
                     }
                 });
             }
         });
-
-
     }
 
     private void fetchMovies() {
@@ -79,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     if (response != null) {
                         List<Model> moviesModelList = response.body();
+
                         for (int i = 0; i < moviesModelList.size(); i++) {
                             String title = moviesModelList.get(i).getTitle();
                             String image = moviesModelList.get(i).getImage();
@@ -87,10 +89,9 @@ public class MainActivity extends AppCompatActivity {
                             ArrayList<Object> genre = moviesModelList.get(i).getGenre();
 
                             myMovie = new MyMovie(title, image, rating, releaseYear, genre);
-                            if (title.equals(myMovie.getTitle())) {
-                                return;
-                            }
                             mMoviesViewModel.insert(myMovie);
+
+
                         }
                     }
                 }
@@ -102,11 +103,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("", "onFailure:------------------- " + t.getMessage());
             }
         });
-
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
 }

@@ -1,26 +1,41 @@
 package com.gil.gilzmovieapp;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 
 public class Model {
 
-    private long id;
+    private String id;
 
+    @SerializedName("title")
     private String title;
 
+    @SerializedName("image")
     private String image;
 
+    @SerializedName("rating")
     private double rating;
 
+    @SerializedName("releaseYear")
     private int releaseYear;
 
-    ArrayList< Object > genre = new ArrayList < Object > ();
+    @SerializedName("genre")
+    private ArrayList<Object> genre = new ArrayList<Object>();
 
-    public long getId() {
+    public Model(String title, String image, double rating, int releaseYear, ArrayList<Object> genre) {
+        this.title = title;
+        this.image = image;
+        this.rating = rating;
+        this.releaseYear = releaseYear;
+        this.genre = genre;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

@@ -6,7 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
 
@@ -33,6 +34,8 @@ public class MovieDetailActivity extends AppCompatActivity {
         text_view_realse_year = findViewById(R.id.tv_release_year);
         tv_genre = findViewById(R.id.tv_genre);
 
+        getSupportActionBar().hide();
+
         Intent intent = getIntent();
         String title = intent.getStringExtra(EXTRA_TITLE);
         String photo = intent.getStringExtra(EXTRA_PHOTO);
@@ -51,7 +54,7 @@ public class MovieDetailActivity extends AppCompatActivity {
             tv_genre.setText("Genres : " + method(String.valueOf(builder)));
         }
 
-        Picasso.with(this).load(photo).into(image_view_detail);
+        Glide.with(this).load(photo).apply(new RequestOptions().override(800, 800)).into(image_view_detail);
         tv_detail.setText(title);
         text_view_realse_year.setText("Release Year : " + year);
         tv_rating.setText("Movie Rating : " + rating);

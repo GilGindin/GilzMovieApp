@@ -7,7 +7,7 @@ public class RetrofitInstance {
 
     private static Retrofit retrofit;
 
-    private static final String BASE_URL ="https://api.androidhive.info/";
+    private static final String BASE_URL = "https://api.androidhive.info/";
 
     //creating a singelton instance of retrofit
     public static Retrofit getRetrofitInstance() {

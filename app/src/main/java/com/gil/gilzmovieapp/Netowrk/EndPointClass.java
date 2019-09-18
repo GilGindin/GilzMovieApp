@@ -1,6 +1,5 @@
 package com.gil.gilzmovieapp.Netowrk;
 
-import com.gil.gilzmovieapp.DataBase.MyMovie;
 import com.gil.gilzmovieapp.Model;
 
 import java.util.List;

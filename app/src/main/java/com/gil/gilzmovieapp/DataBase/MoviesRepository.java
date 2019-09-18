@@ -9,7 +9,7 @@ import java.util.List;
 public class MoviesRepository {
 
     private MyDao mMyDao;
-        private LiveData<List<MyMovie>> allMovies;
+    private LiveData<List<MyMovie>> allMovies;
 
     public MoviesRepository(Application application) {
         MyAppDataBase myAppDataBase = MyAppDataBase.getInstance(application);
@@ -23,6 +23,10 @@ public class MoviesRepository {
 
     public void update(MyMovie myMovie) {
         new UpdateAsyncTask(mMyDao).execute(myMovie);
+    }
+
+    public void delete(MyMovie note) {
+        new DeleteAsyncTask(mMyDao).execute(note);
     }
 
 
@@ -55,6 +59,20 @@ public class MoviesRepository {
         @Override
         protected Void doInBackground(MyMovie... movies) {
             mMyDao.update(movies[0]);
+            return null;
+        }
+    }
+
+    private static class DeleteAsyncTask extends AsyncTask<MyMovie, Void, Void> {
+        private MyDao mMyDao;
+
+        private DeleteAsyncTask(MyDao myDao) {
+            this.mMyDao = myDao;
+        }
+
+        @Override
+        protected Void doInBackground(MyMovie... movies) {
+            mMyDao.delete(movies[0]);
             return null;
         }
     }

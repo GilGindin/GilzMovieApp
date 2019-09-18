@@ -7,7 +7,7 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-@Database(entities = MyMovie.class, version = 3 , exportSchema = false)
+@Database(entities = MyMovie.class, version = 7)
 public abstract class MyAppDataBase extends RoomDatabase {
 
     private static MyAppDataBase instance;

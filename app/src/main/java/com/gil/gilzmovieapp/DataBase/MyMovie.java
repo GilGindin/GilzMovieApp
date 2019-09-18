@@ -2,33 +2,35 @@ package com.gil.gilzmovieapp.DataBase;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.TypeConverters;
-import android.support.annotation.NonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
-@Entity(tableName = "movies")
+@Entity(tableName = "movies", indices = @Index(value = {"title"}, unique = true))
 public class MyMovie implements Comparable {
 
     @PrimaryKey(autoGenerate = true)
-    @NonNull
-    @ColumnInfo(name = "id")
     private long id;
 
+    @ColumnInfo(name = "title")
     private String title;
 
+    @ColumnInfo(name = "image")
     private String image;
 
+    @ColumnInfo(name = "rating")
     private double rating;
 
+    @ColumnInfo(name = "releaseyear")
     private int releaseYear;
 
+    @ColumnInfo(name = "genre")
     @TypeConverters(GenreTypeConverter.class)
-    List<Object> genre;
+    List<Object> genre = new ArrayList<>();
 
-    @Ignore
     public MyMovie(String title, String image, double rating, int releaseYear, List<Object> genre) {
         this.title = title;
         this.image = image;
@@ -36,15 +38,15 @@ public class MyMovie implements Comparable {
         this.releaseYear = releaseYear;
         this.genre = genre;
     }
-
-    public MyMovie(long id, String title, String image, double rating, int releaseYear, List<Object> genre) {
-        this.id = id;
-        this.title = title;
-        this.image = image;
-        this.rating = rating;
-        this.releaseYear = releaseYear;
-        this.genre = genre;
-    }
+//
+//    public MyMovie(long id, String title, String image, double rating, int releaseYear, List<Object> genre) {
+//        this.id = id;
+//        this.title = title;
+//        this.image = image;
+//        this.rating = rating;
+//        this.releaseYear = releaseYear;
+//        this.genre = genre;
+//    }
 
     public List<Object> getGenre() {
         return genre;

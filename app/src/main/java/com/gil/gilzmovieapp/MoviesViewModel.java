@@ -21,9 +21,6 @@ public class MoviesViewModel extends AndroidViewModel {
         allMovies = mMoviesRepository.getAllMovies();
     }
 
-    public LiveData<List<MyMovie>> getAllMovies() {
-        return allMovies;
-    }
 
     public void insert(MyMovie myMovie) {
         mMoviesRepository.insert(myMovie);
@@ -33,8 +30,11 @@ public class MoviesViewModel extends AndroidViewModel {
         mMoviesRepository.update(myMovie);
     }
 
+    public void delete(MyMovie myMovie) {
+        mMoviesRepository.delete(myMovie);
+    }
 
-
-
-
+    public LiveData<List<MyMovie>> getAllMovies() {
+        return allMovies;
+    }
 }
